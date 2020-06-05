@@ -1,1 +1,1 @@
-# Webpack typescipt templete
+# Webpack typescript templete
