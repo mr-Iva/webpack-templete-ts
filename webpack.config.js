@@ -10,8 +10,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle-[hash].js'
   },
+  devtool: "source-map",
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      "@": "./src"
+    }
   },
   devServer: {
     contentBase: 'dist',
@@ -40,7 +44,6 @@ module.exports = {
             },
           },
           'css-loader',
-          'postcss-loader',
           'sass-loader',
         ],
       },
@@ -52,19 +55,11 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: 'src/index.html',
-    //     to: './index.html'
-    //   },
-    //   {
-    //     from: 'src/assets/**/*',
-    //     to: './assets',
-    //     transformPath(targetPath, absolutePath) {
-    //       return targetPath.replace('src/assets', '');
-    //     }
-    //   },
-    // ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/favicon.ico', to: './favicon.ico' }
+      ]
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       minify: {
